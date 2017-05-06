@@ -5,19 +5,14 @@ import java.util.UUID
 import cats.free.Free
 import cats.{Monad, ~>}
 import cats.implicits._
-import com.softwaremill.Refactoring.Initial.User
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
 object Refactoring {
+  case class User(id: UUID, email: String, loyaltyPoints: Int)
+
   object Initial {
-    trait EmailService {
-      def sendEmail(email: String, subject: String, body: String): Future[Unit]
-    }
-
-    case class User(id: UUID, email: String, loyaltyPoints: Int)
-
     trait UserRepository {
       def findUser(id: UUID): Future[Option[User]]
       def updateUser(u: User): Future[Unit]
